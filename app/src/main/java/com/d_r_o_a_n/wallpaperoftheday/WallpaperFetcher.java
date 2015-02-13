@@ -75,14 +75,12 @@ public class WallpaperFetcher extends AsyncTask<Void, Void, Bitmap> {
                 json = null;
             }
             json = buffer.toString();
-            Log.v(LOG_TAG, json);
             //json parsing
             JSONObject mStart=new JSONObject(json);
             JSONArray images=mStart.getJSONArray("images");
             JSONObject a=images.getJSONObject(0);
             String b=a.getString("url");
             b="http://bing.com"+b;
-            Log.w(LOG_TAG,b);
             bitm=loadBitmap(b);
 
         } catch (MalformedURLException e) {
@@ -94,8 +92,6 @@ public class WallpaperFetcher extends AsyncTask<Void, Void, Bitmap> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         return bitm;
     }
 
@@ -118,12 +114,10 @@ public class WallpaperFetcher extends AsyncTask<Void, Void, Bitmap> {
                 try {
                     int h = wallpaperManager.getDesiredMinimumHeight();
                     int w = wallpaperManager.getDesiredMinimumWidth();
-                    Log.w("" + h, "" + w);
                     wallpaperManager.suggestDesiredDimensions(w, h);
                     Bitmap bitmapResized = Bitmap.createScaledBitmap(result, w, h, true);
                     wallpaperManager.setBitmap(bitmapResized);
                 } catch (IOException e) {
-                    Log.w("e","nuuuuuuuuuuuullllllllll");
                     e.printStackTrace();
                 }
             }
