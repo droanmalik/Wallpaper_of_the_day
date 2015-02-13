@@ -7,6 +7,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,6 +64,13 @@ public class WallpaperFetcher extends AsyncTask<Void, Void, Bitmap> {
             }
             json = buffer.toString();
             Log.v(LOG_TAG, json);
+            //json parsing
+            JSONObject mStart=new JSONObject(json);
+            JSONArray images=mStart.getJSONArray("images");
+            JSONObject a=images.getJSONObject(0);
+            String b=a.getString("url");
+            b="http://bing.com"+b;
+            Log.w(LOG_TAG,b);
 
 
 
@@ -68,6 +79,8 @@ public class WallpaperFetcher extends AsyncTask<Void, Void, Bitmap> {
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
